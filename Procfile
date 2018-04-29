@@ -1,1 +1,1 @@
-web: gunicorn climateapi.app:app 
+web: gunicorn --pythonpath app app:app 

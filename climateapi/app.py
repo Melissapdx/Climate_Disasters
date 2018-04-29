@@ -1,4 +1,4 @@
-from flask import Flask, request, send_from_directory
+from flask import Flask, send_from_directory
 from flask_restful import Resource, Api, fields, marshal_with
 from model import store_disasters
 import os
