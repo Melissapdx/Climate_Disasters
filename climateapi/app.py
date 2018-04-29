@@ -29,7 +29,6 @@ def send_js(path):
 
 
 class APIIndex(Resource):
-    @marshal_with(resource_fields)
     def get(self):
         return [
             {'disasters': '/api/v1/disasters'},
@@ -45,30 +44,35 @@ class DisasterIndex(Resource):
         return disasters
 
 class DisasterByType(Resource):
-    @marshal_with(resource_fields)
     def get(self, type):
         # Filter the list of disasters by type: Type.
         disasters_of_type = [x for x in disasters if x.type == type]
-        return disasters_of_type
+        return filter(disasters_of_type)
+
 
 
 class DisasterByYear(Resource):
-    @marshal_with(resource_fields)
     def get(self, year):
         # Filter the list of disasters by type: Year.
         disasters_by_year = [x for x in disasters if x.year == year]
-        return disasters_by_year
+        return filter(disasters_by_year)
 
 
 class DisasterByYearandType(Resource):
-    @marshal_with(resource_fields)
     def get(self, year,type):
         # Filter by year and type of disasters
         disasters_by_type_year = [y for y in disasters if y.type == type and y.year == year]
-        return disasters_by_type_year
+        return filter(disasters_by_type_year)
 
 
-# api.add_resource(DisasterIndex, '/api/v1/')
+def filter(lst):
+    disaster_count ={}
+    for item in lst:
+        key = item.state
+        disaster_count[key] = disaster_count.get(key,0) + 1
+    return disaster_count
+
+api.add_resource(APIIndex, '/api/v1/')
 api.add_resource(DisasterIndex, '/api/v1/disasters')
 api.add_resource(DisasterByType, '/api/v1/disasters/type/<string:type>')
 api.add_resource(DisasterByYear, '/api/v1/disasters/year/<string:year>')

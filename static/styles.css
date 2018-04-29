@@ -1,10 +1,11 @@
-/* Main*/
+/* Main Styles*/
 body { 
 	margin:0; 
 	padding:0;
 	font-family: 'Lato', sans-serif; 
 }
 
+/* Content*/
 #map {
 	position:absolute; 
 	top:0; 
@@ -18,3 +19,11 @@ body {
   left: 20px;
   top: 20px;
  }
+
+ select {
+	display:block;
+	margin-bottom: 20px;
+	margin-top: 5px;
+	min-width:100%;
+	border-color: lightgrey;
+}
