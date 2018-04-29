@@ -1,9 +1,11 @@
-from flask import Flask, request
-from flask_restful import Resource, Api,reqparse, abort, fields, marshal_with
+from flask import Flask, request, send_from_directory
+from flask_restful import Resource, Api, fields, marshal_with
 from model import store_disasters
+import os
 
-
-app = Flask(__name__)
+# https://stackoverflow.com/questions/44578881/flask-404-url-not-found?noredirect=1&lq=1
+static_folder = os.path.join(os.pardir, 'static')
+app = Flask(__name__, static_folder=static_folder, static_url_path='/static')
 api = Api(app)
 
 disasters = store_disasters()
@@ -16,11 +18,31 @@ resource_fields = {
 }
 
 
+@app.route('/')
+def root():
+    return app.send_static_file('index.html')
+
+
+@app.route('/static/<path:path>')
+def send_js(path):
+    return send_from_directory('static', path)
+
+
+class APIIndex(Resource):
+    @marshal_with(resource_fields)
+    def get(self):
+        return [
+            {'disasters': '/api/v1/disasters'}
+            {'disasters_by_type': '/api/v1/disasters/type/<string:type>'},
+            {'disasters_by_year': '/api/v1/disasters/year/<string:year>'},
+            {'disasters_by_year_and_type': '/api/v1/disasters/yeartype/<string:year>/<string:type>'}
+        ]
+
+
 class DisasterIndex(Resource):
     @marshal_with(resource_fields)
     def get(self):
         return disasters
-
 
 class DisasterByType(Resource):
     @marshal_with(resource_fields)
@@ -45,10 +67,12 @@ class DisasterByYearandType(Resource):
         disasters_by_type_year = [y for y in disasters if y.type == type and y.year == year]
         return disasters_by_type_year
 
-api.add_resource(DisasterIndex, '/')
-api.add_resource(DisasterByType, '/type/<string:type>')
-api.add_resource(DisasterByYear, '/year/<string:year>')
-api.add_resource(DisasterByYearandType, '/yeartype/<string:year>/<string:type>')
+
+# api.add_resource(DisasterIndex, '/api/v1/')
+api.add_resource(DisasterIndex, '/api/v1/disasters')
+api.add_resource(DisasterByType, '/api/v1/disasters/type/<string:type>')
+api.add_resource(DisasterByYear, '/api/v1/disasters/year/<string:year>')
+api.add_resource(DisasterByYearandType, '/api/v1/disasters/yeartype/<string:year>/<string:type>')
 
 
 if __name__ == '__main__':
