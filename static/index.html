@@ -4,19 +4,20 @@
 <meta charset=utf-8 />
 <title>Climate Disasters</title>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="static/styles.css">
+<script src="https://code.jquery.com/jquery.js"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css' rel='stylesheet' />
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css' rel='stylesheet'/>
+<link rel="stylesheet" type="text/css" href="static/styles.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
 <section class="header">
 </section>
 <div id='map'>
   <div class="key">
-    <select class="dropdown">
+    <select class="dropdown" id="disasterType">
       <option value disabled>Select a Climate Event</option>
-      <option value="all">All Climate Events</option>
+      <option value="All">All Climate Events</option>
       <option value="Chemical">Chemical</option>
       <option value="Coastal Storm">Coastal Storm</option>
       <option value="Drought">Drought</option>
@@ -36,7 +37,7 @@
       <option value="Typhoon">Typhoon</option>
       <option value="Volcano">Volcano</option>
     </select>
-    <select class="dropdown">
+    <select class="dropdown" id="disasterYear">
       <option value="All">All</option>
       <option value="1953">1953</option>
       <option value="1954">1954</option>
@@ -109,5 +110,54 @@
 </div>
 <script src="./static/map.js"></script>
 <script src="./static/us-states.js"></script>
+<script type="text/javascript">
+  $(function(){
+    var $disasterTypeSector = $('#disasterType');
+    var $disasterYearSector = $('#disasterYear');
+
+    $('#disasterType, #disasterYear').on('change', function(e){
+      var typeSelected = $disasterTypeSector.val();
+      var yearSelected = $disasterYearSector.val();
+      
+      var url = '/api/v1/disasters';
+      if(typeSelected !== 'All' && yearSelected !== "All") {
+        // user selected both type and year.
+        url += '/yeartype/' + yearSelected + '/' + typeSelected;
+      } else if(typeSelected !== 'All') {
+        // user selected just type.
+        url += '/type/' + typeSelected;
+      } else if(yearSelected !== 'All') {
+        // user selected just year.
+        url += '/year/' + yearSelected;
+      }
+      getData(url);
+    });
+
+
+    function getData(url) {
+      // get the data from the API.
+      $.ajax({
+        method: 'GET',
+        url: url,
+        success: function(data){
+          showData(data);
+        },
+        error: function(){
+          // TODO: some UI to show that we hit an error.
+          console.error(arguments);
+        }
+      });
+    }
+
+    // function showData(data) {
+    //   // Update the map with the disaster information
+    //   var highestValue = max([0, 1, 34, 44])
+    //   values.each(value => {
+    //     value/highestValue // 34/44 = 0.7727272727. value would be 772.
+    //   })
+
+    // }
+  });
+</script>
 </body>
 </html>
