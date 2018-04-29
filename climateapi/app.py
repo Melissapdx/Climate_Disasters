@@ -32,7 +32,7 @@ class APIIndex(Resource):
     @marshal_with(resource_fields)
     def get(self):
         return [
-            {'disasters': '/api/v1/disasters'}
+            {'disasters': '/api/v1/disasters'},
             {'disasters_by_type': '/api/v1/disasters/type/<string:type>'},
             {'disasters_by_year': '/api/v1/disasters/year/<string:year>'},
             {'disasters_by_year_and_type': '/api/v1/disasters/yeartype/<string:year>/<string:type>'}

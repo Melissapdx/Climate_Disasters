@@ -1,0 +1,20 @@
+/* Main*/
+body { 
+	margin:0; 
+	padding:0;
+	font-family: 'Lato', sans-serif; 
+}
+
+#map {
+	position:absolute; 
+	top:0; 
+	bottom:0; 
+	width:100%; 
+}
+
+.key {
+  position: absolute;
+  z-index: 1;
+  left: 20px;
+  top: 20px;
+ }
