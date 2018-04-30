@@ -73,13 +73,3 @@ function renderLayer(data) {
       }
     }, firstSymbolId);
 }
-//implement hovering
-// var lastHovered = null;
-// map.on("mousemove", 'us-states', function(e) {
-//   var stateHovered = e.features[0].properties.name;
-//   var key = stateMapping[stateHovered];
-//   if(lastHovered !== key) {
-//     lastHovered = key;
-//     console.log(stateHovered + ':' + currentMapData[key]);
-//   }
-// });

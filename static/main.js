@@ -1,10 +1,9 @@
 var currentMapData = null;
 
 $(function(){
-  var url = '/api/v1/disasters';
   
   map.on('load', function () {
-    getData(url);
+    getData('/api/v1/disasters');
   });
   
 
@@ -14,7 +13,7 @@ $(function(){
   $('#disasterType, #disasterYear').on('change', function(e){
     var typeSelected = $disasterTypeSector.val();
     var yearSelected = $disasterYearSector.val();
-    
+    var url = '/api/v1/disasters';
     if(typeSelected !== 'All' && yearSelected !== "All") {
       // user selected both type and year.
       url += '/yeartype/' + yearSelected + '/' + typeSelected;
@@ -39,7 +38,6 @@ $(function(){
         showData(data);
       },
       error: function(){
-        // TODO: some UI to show that we hit an error.
         console.error(arguments);
       }
     });
@@ -47,17 +45,8 @@ $(function(){
 
   // Update the map with the disaster information
   function showData(data) {  
-    // TODO: Replace Object.values. Doens't work in IE
     var highestNum = getMaxOfArray(Object.values(data));
-    
     var normalizedData = Object.assign({}, data);
-
-    Object.keys(normalizedData).forEach(function(key) {
-      var value = normalizedData[key];
-      normalizedData[key] = (normalizedData[key] / highestNum) * 1000;
-    });
-
-    
 
     statesData.features.forEach(function(stateData){
       var longName = stateData.properties.name;
@@ -68,8 +57,8 @@ $(function(){
         stateData.properties.density = 0;
       }
     });
-    renderLayer(statesData);
 
+    renderLayer(statesData);
   };
 });
 
