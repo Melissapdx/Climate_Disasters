@@ -1,8 +1,7 @@
 # Climate_Disasters
 ## Restful API displaying climate disasters
-[site](https://climate-disasters-us.herokuapp.com/)
-#### Tech Stack: Python, Flask, Javascript, Possibly React, CSS, HTML
-#### Libraries: Flask-restful, Requests
+[Site](https://climate-disasters-us.herokuapp.com/)
+#### Tech Stack: Python, Flask, Javascript, CSS, HTML
 
 # todo
 #### Using python requests retrieve data
@@ -11,8 +10,11 @@
 # features for F/E
 #### Filter by disaster
 #### Filter by each year
+
+# Todo
 #### Show number of incidents in state with color on map
 #### Can see number of disasters per state on hover
+#### Mobile friendly styles for UI
 
 # endpoints
 #### /root  get's all endpoints

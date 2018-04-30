@@ -1,6 +1,5 @@
 from unittest import TestCase
 from app import app
-from climateapi.model import Disaster
 
 
 class ClimateTests(TestCase):
@@ -20,7 +19,7 @@ class ClimateTests(TestCase):
         self.assertEqual(result.status_code, 200)
 
     def test_endpoints(self):
-        """Test endpoints route"""
+        """Test endpoints"""
         result = self.client.get('/api/v1/')
         self.assertEqual(result.status_code, 200)
         self.assertEqual(result.json, [{'disasters': '/api/v1/disasters'},
@@ -41,7 +40,7 @@ class ClimateTests(TestCase):
     def test_by_year_and_type(self):
         result = self.client.get('/api/v1/disasters/yeartype/1980/Volcano')
         self.assertEqual(result.status_code, 200)
-        self.assertEqual(result.json,{'WA': 39, 'ID': 8})
+        self.assertEqual(result.json, {'WA': 39, 'ID': 8})
 
 if __name__ == "__main__":
     import unittest

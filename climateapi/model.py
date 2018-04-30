@@ -9,6 +9,7 @@ except ImportError:
     # for Python 3.x
     from io import StringIO
 
+
 def store_disasters():
     result = requests.get("https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries.csv")
     temp_data = StringIO(result.text)

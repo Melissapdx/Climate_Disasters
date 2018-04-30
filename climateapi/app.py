@@ -10,6 +10,7 @@ api = Api(app)
 
 disasters = store_disasters()
 
+
 @app.before_request
 def before_req():
     global disasters
@@ -57,17 +58,17 @@ class DisasterByYear(Resource):
 
 
 class DisasterByYearandType(Resource):
-    def get(self, year,type):
+    def get(self, year, type):
         # Filter by year and type of disasters
         disasters_by_type_year = [y for y in disasters if y.type == type and y.year == year]
         return filter(disasters_by_type_year)
 
 
 def filter(lst):
-    disaster_count ={}
+    disaster_count = {}
     for item in lst:
         key = item.state
-        disaster_count[key] = disaster_count.get(key,0) + 1
+        disaster_count[key] = disaster_count.get(key, 0) + 1
     return disaster_count
 
 api.add_resource(APIIndex, '/api/v1/')
