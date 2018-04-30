@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8 />
-<title>Climate Disasters</title>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-<script src="https://code.jquery.com/jquery.js"></script>
-<script src='https://api.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css' rel='stylesheet'/>
-<link rel="stylesheet" type="text/css" href="static/styles.css">
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <meta charset=utf-8 />
+  <title>Climate Disasters</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css' rel='stylesheet'/>
+  
+  <link rel="stylesheet" type="text/css" href="static/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
+
 <body>
-<section class="header">
-</section>
-<div id='map'>
+  <section class="header">
+        <h1 class="text">Climate Disaster Interface</h1>
+  </section>
+  <div id='map'></div>
   <div class="key">
     <select class="dropdown" id="disasterType">
       <option value disabled>Select a Climate Event</option>
@@ -107,10 +108,47 @@
       <option value="2018">2018</option>
     </select>
   </div>
-</div>
-<script src="./static/map.js"></script>
-<script src="./static/us-states.js"></script>
-<script src="./static/main.js"></script>
-</script>
+  <div class="legend">
+      <legend class="text" >Incidents Key</legend>
+      <table>
+        <tr>
+          <td>0</td>
+          <td><div style="background:#808080;" ></div></td>
+        </tr>
+        <tr>
+          <td>10:</td>
+          <td><div style="background:#56d7ff;" ></div></td>
+        </tr>
+        <tr>
+          <td>20:</td>
+          <td><div style="background:#3DBEFF;" ></div></td>
+        </tr>
+        <tr>
+          <td>50: </td>
+          <td><div style="background:#23A4FF;" ></div></td>
+        </tr>
+        <tr>
+          <td>100: </td>
+          <td><div style="background:#0A8BE6;" ></div></td>
+        </tr>
+        <tr>
+          <td>200: </td>
+          <td><div style="background:#0071CC;" ></div></td>
+        </tr>
+        <tr>
+          <td>500: </td>
+          <td><div style="background:#0058B3;" ></div></td>
+        </tr>
+        <tr>
+          <td>1000 +</td>
+          <td><div style="background:#003E99;" ></div></td>
+        </tr>
+      </table>
+  </div>
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js'></script>    
+  <script src="./static/map.js"></script>
+  <script src="./static/us-states.js"></script>
+  <script src="./static/main.js"></script>
 </body>
 </html>

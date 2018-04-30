@@ -1,5 +1,5 @@
 from flask import Flask, send_from_directory
-from flask_restful import Resource, Api, fields, marshal_with
+from flask_restful import Resource, Api
 from model import store_disasters
 import os
 
@@ -9,13 +9,6 @@ app = Flask(__name__, static_folder=static_folder, static_url_path='/static')
 api = Api(app)
 
 disasters = store_disasters()
-
-resource_fields = {
-    'type': fields.String,
-    'state': fields.String,
-    'year': fields.String,
-    'disasterid': fields.String,
-}
 
 
 @app.route('/')
@@ -39,9 +32,8 @@ class APIIndex(Resource):
 
 
 class DisasterIndex(Resource):
-    @marshal_with(resource_fields)
     def get(self):
-        return disasters
+        return filter(disasters)
 
 class DisasterByType(Resource):
     def get(self, type):

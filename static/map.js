@@ -9,9 +9,6 @@ var map = new mapboxgl.Map({
   zoom: 2.850019725398168
 });
 
-map.on('load', function () {
-  renderLayer(statesData);
-});
 
 map.on('click', 'us-states', function(e) {
   var coordinates = almostFlatten(e.features[0].geometry.coordinates);
@@ -76,3 +73,13 @@ function renderLayer(data) {
       }
     }, firstSymbolId);
 }
+//implement hovering
+// var lastHovered = null;
+// map.on("mousemove", 'us-states', function(e) {
+//   var stateHovered = e.features[0].properties.name;
+//   var key = stateMapping[stateHovered];
+//   if(lastHovered !== key) {
+//     lastHovered = key;
+//     console.log(stateHovered + ':' + currentMapData[key]);
+//   }
+// });

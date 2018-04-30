@@ -1,6 +1,13 @@
-
+var currentMapData = null;
 
 $(function(){
+  var url = '/api/v1/disasters';
+  
+  map.on('load', function () {
+    getData(url);
+  });
+  
+
   var $disasterTypeSector = $('#disasterType');
   var $disasterYearSector = $('#disasterYear');
 
@@ -8,7 +15,6 @@ $(function(){
     var typeSelected = $disasterTypeSector.val();
     var yearSelected = $disasterYearSector.val();
     
-    var url = '/api/v1/disasters';
     if(typeSelected !== 'All' && yearSelected !== "All") {
       // user selected both type and year.
       url += '/yeartype/' + yearSelected + '/' + typeSelected;
@@ -29,6 +35,7 @@ $(function(){
       method: 'GET',
       url: url,
       success: function(data){
+        currentMapData = data;
         showData(data);
       },
       error: function(){

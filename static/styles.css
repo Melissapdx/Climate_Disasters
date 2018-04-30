@@ -5,17 +5,27 @@ body {
 	font-family: 'Lato', sans-serif; 
 }
 
+.text {
+	text-align: center;
+	color:#0071CC;
+}
 /* Content*/
+.header{
+	height: 300px;
+  z-index: 1;
+}
 #map {
 	position:absolute; 
 	top:0; 
 	bottom:0; 
-	width:100%; 
+	width:100%;
+	z-index:-1; 
+	height: 100%;
 }
 
 .key {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   left: 20px;
   top: 20px;
  }
@@ -26,4 +36,30 @@ body {
 	margin-top: 5px;
 	min-width:100%;
 	border-color: lightgrey;
+}
+
+.legend {
+  position: absolute;
+  z-index: 1;
+  left:20px;
+  bottom:40px;
+  height:200px;
+  width:200px;
+  background-color:#fff;
+  padding:10px;
+  box-shadow:0 0 4px 1px rgba(0, 0, 0, 0.2);
+ }
+
+ .legend div {
+ 	width:15px;
+ 	height: 15px;
+ 	float:right;
+ }
+
+ table {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 2px;
+  border-color: grey;
+  width:100%;
 }
