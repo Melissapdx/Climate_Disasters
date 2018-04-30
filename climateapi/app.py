@@ -14,7 +14,6 @@ disasters = store_disasters()
 def before_req():
     global disasters
     if len(disasters) < 1:
-        print "Problem, the disasters are empty."
         disasters = store_disasters()
 
 
