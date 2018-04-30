@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, g
 from flask_restful import Resource, Api
 from model import store_disasters
 import os
@@ -9,6 +9,13 @@ app = Flask(__name__, static_folder=static_folder, static_url_path='/static')
 api = Api(app)
 
 disasters = store_disasters()
+
+@app.before_request
+def before_req():
+    global disasters
+    if len(disasters) < 1:
+        print "Problem, the disasters are empty."
+        disasters = store_disasters()
 
 
 @app.route('/')
@@ -35,12 +42,12 @@ class DisasterIndex(Resource):
     def get(self):
         return filter(disasters)
 
+
 class DisasterByType(Resource):
     def get(self, type):
         # Filter the list of disasters by type: Type.
         disasters_of_type = [x for x in disasters if x.type == type]
         return filter(disasters_of_type)
-
 
 
 class DisasterByYear(Resource):
